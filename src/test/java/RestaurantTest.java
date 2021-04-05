@@ -17,6 +17,7 @@ class RestaurantTest {
         restaurant = new Restaurant("Amelie's cafe", "Chennai", openingTime, closingTime);
         restaurant.addToMenu("Sweet corn soup", 119);
         restaurant.addToMenu("Vegetable lasagne", 269);
+        restaurant.addToMenu("Pastry d'or", 180);
     }
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //    @BeforeEach
@@ -68,15 +69,32 @@ class RestaurantTest {
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //>>>>>>>>>>>>>>>>>>>>>>CALCULATING TOTAL PRICE OF MENU ITEMS SELECTED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    @Test
-    public void remove_menu_item_should_reduce_list_of_menu_selected_size_by_1() throws restaurantNotFoundException {
 
-        //code for Calcultion menu item total price of adding selection
+    @Test
+    public void no_menu_items_selected_should_return_zero_price(){
+        Restaurant spyRestaurant = Mockito.spy(restaurant);
+        assertEquals(0,spyRestaurant.calculateTotalPriceOfMenu());
     }
 
     @Test
-    public void add_menuItem_should_increase_list_of_restaurants_size_by_1(){
-//code for Calcultion menu item total price of adding selection
+    public void unselect_menu_item_should_reduce_total_price_of_menu_selected() throws restaurantNotFoundException {
+
+        Restaurant spyRestaurant = Mockito.spy(restaurant);
+        spyRestaurant.addMenuSelection("Sweet corn soup");
+        spyRestaurant.addMenuSelection("Vegetable lasagne");
+        assertEquals(269+119,spyRestaurant.calculateTotalPriceOfMenu());
+        spyRestaurant.removeMenuSelection("Vegetable lasagne");
+        assertEquals(119,spyRestaurant.calculateTotalPriceOfMenu());
+    }
+
+    @Test
+    public void select_menuItem_should_increase_total_price_of_menu_selected(){
+
+        Restaurant spyRestaurant = Mockito.spy(restaurant);
+        spyRestaurant.addMenuSelection("Sweet corn soup");
+        assertEquals(119,spyRestaurant.calculateTotalPriceOfMenu());
+        spyRestaurant.addMenuSelection("Vegetable lasagne");
+        assertEquals(269+119,spyRestaurant.calculateTotalPriceOfMenu());
     }
     //<<<<<<<<<<<<<<<<<<<<CALCULATING TOTAL PRICE OF MENU ITEMS SELECTED>>>>>>>>>>>>>>>>>>>>>>>>>>
 }

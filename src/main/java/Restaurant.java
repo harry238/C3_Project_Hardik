@@ -9,6 +9,7 @@ public class Restaurant {
     public LocalTime openingTime;
     public LocalTime closingTime;
     private List<Item> menu = new ArrayList<Item>();
+    private List<Item> selectedMenu = new ArrayList<Item>();
 
     public String getLocation() {
         return location;
@@ -58,6 +59,30 @@ public class Restaurant {
 
         menu.remove(itemToBeRemoved);
     }
+
+    public void addMenuSelection(String itemName){
+        Item itemToBeSelected = findItemByName(itemName);
+        selectedMenu.add(itemToBeSelected);
+        calculateTotalPriceOfMenu();
+    }
+
+    public void removeMenuSelection(String itemName){
+        Item itemToBeUnSelected = findItemByName(itemName);
+        selectedMenu.remove(itemToBeUnSelected);
+        calculateTotalPriceOfMenu();
+    }
+
+    public int calculateTotalPriceOfMenu(){
+        int totalPrice = 0;
+        for (Item selectedItem: selectedMenu){
+            for(Item item: menu) {
+                if(item.getName().equals(selectedItem.getName()))
+                    totalPrice += selectedItem.getPrice();
+            }
+        }
+        return totalPrice;
+    }
+
     public void displayDetails(){
         System.out.println("Restaurant:"+ name + "\n"
                 +"Location:"+ location + "\n"
