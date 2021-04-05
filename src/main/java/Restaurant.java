@@ -10,6 +10,10 @@ public class Restaurant {
     public LocalTime closingTime;
     private List<Item> menu = new ArrayList<Item>();
 
+    public String getLocation() {
+        return location;
+    }
+
     public Restaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
         this.name = name;
         this.location = location;
@@ -18,14 +22,18 @@ public class Restaurant {
     }
 
     public boolean isRestaurantOpen() {
-        return true;
+        if(getCurrentTime().isAfter(this.openingTime) && getCurrentTime().isBefore(this.closingTime)){
+            return true;
+        } else{
+            return false;
+        }
         //DELETE ABOVE STATEMENT AND WRITE CODE HERE
     }
 
     public LocalTime getCurrentTime(){ return  LocalTime.now(); }
 
     public List<Item> getMenu() {
-        return null;
+        return menu;
         //DELETE ABOVE RETURN STATEMENT AND WRITE CODE HERE
     }
 
