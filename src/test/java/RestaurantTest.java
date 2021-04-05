@@ -10,7 +10,7 @@ class RestaurantTest {
     Restaurant restaurant;
     //REFACTOR ALL THE REPEATED LINES OF CODE
 
-
+    @BeforeEach
     private void AddRestaurant() {
         LocalTime openingTime = LocalTime.parse("10:30:00");
         LocalTime closingTime = LocalTime.parse("22:00:00");
@@ -46,7 +46,6 @@ class RestaurantTest {
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Test
     public void adding_item_to_menu_should_increase_menu_size_by_1(){
-        AddRestaurant();
 
         int initialMenuSize = restaurant.getMenu().size();
         restaurant.addToMenu("Sizzling brownie",319);
@@ -55,7 +54,6 @@ class RestaurantTest {
 
     @Test
     public void removing_item_from_menu_should_decrease_menu_size_by_1() throws itemNotFoundException {
-        AddRestaurant();
 
         int initialMenuSize = restaurant.getMenu().size();
         restaurant.removeFromMenu("Vegetable lasagne");
@@ -63,10 +61,22 @@ class RestaurantTest {
     }
     @Test
     public void removing_item_that_does_not_exist_should_throw_exception() {
-        AddRestaurant();
 
         assertThrows(itemNotFoundException.class,
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //>>>>>>>>>>>>>>>>>>>>>>CALCULATING TOTAL PRICE OF MENU ITEMS SELECTED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Test
+    public void remove_menu_item_should_reduce_list_of_menu_selected_size_by_1() throws restaurantNotFoundException {
+
+        //code for Calcultion menu item total price of adding selection
+    }
+
+    @Test
+    public void add_menuItem_should_increase_list_of_restaurants_size_by_1(){
+//code for Calcultion menu item total price of adding selection
+    }
+    //<<<<<<<<<<<<<<<<<<<<CALCULATING TOTAL PRICE OF MENU ITEMS SELECTED>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
